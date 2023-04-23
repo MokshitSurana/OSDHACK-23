@@ -1,8 +1,6 @@
 # POWERUP
 
-## Take your health to new heights with Power Up
-
-## Live Website - [PowerUp](https://powerup.sidd065.repl.co/)
+## Welcome to Power Up, the ultimate health and fitness app that takes your well-being to new heights! Visit the live website at [PowerUp](https://powerup.sidd065.repl.co/).
 
 ## Background
 
