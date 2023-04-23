@@ -6,49 +6,49 @@ const authMiddleware = require("../middleware/authMiddleware.js");
 
 //register a new user
 router.get("/ping", async (req, res) => {
-    try {
-      res.send({
-        message: "pong",
-        success: true,
-        data: null,
-      });
-    } catch (error) {
-      res.send({
-        message: error.message,
-        success: false,
-        data: null,
-      });
-    }
-  });
+  try {
+    res.send({
+      message: "pong",
+      success: true,
+      data: null,
+    });
+  } catch (error) {
+    res.send({
+      message: error.message,
+      success: false,
+      data: null,
+    });
+  }
+});
 router.post("/register", async (req, res) => {
-    try {
-      const existingUser = await User.findOne({ email: req.body.email });
-      if (existingUser) {
-        return res.send({
-          message: "User already exists",
-          success: false,
-          data: null,
-        });
-      }
-      const hashedPassword = await bcrypt.hash(req.body.password, 10);
-      req.body.password = hashedPassword;
-      const newUser = new User(req.body);
-      await newUser.save();
-      res.send({
-        message: "User created successfully",
-        success: true,
-        data: null,
-      });
-    } catch (error) {
-      res.send({
-        message: error.message,
+  try {
+    const existingUser = await User.findOne({ email: req.body.email });
+    if (existingUser) {
+      return res.send({
+        message: "User already exists",
         success: false,
         data: null,
       });
     }
-  });
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    req.body.password = hashedPassword;
+    const newUser = new User(req.body);
+    await newUser.save();
+    res.send({
+      message: "User created successfully",
+      success: true,
+      data: null,
+    });
+  } catch (error) {
+    res.send({
+      message: error.message,
+      success: false,
+      data: null,
+    });
+  }
+});
 
-  // login user
+// login user
 
 router.post("/login", async (req, res) => {
   try {
@@ -105,30 +105,30 @@ router.post("/login", async (req, res) => {
 router.post("/goals", async (req, res) => {
   try {
     console.log(req.body) //Doing it the correct was not updating properly
-    User.updateOne({ email: req.body.email }, {$set: {weight: req.body.weight}}, function(err, res) {
-    console.log(err);
-  });
-    User.updateOne({ email: req.body.email }, {$set: {height: req.body.height}}, function(err, res) {
-    console.log(err);
-  });
-    User.updateOne({ email: req.body.email }, {$set: {stepGoal: req.body.stepGoal}}, function(err, res) {
-    console.log(err);
-  });
-    User.updateOne({ email: req.body.email }, {$set: {calGoal: req.body.calGoal}}, function(err, res) {
-    console.log(err);
-  });
-    User.updateOne({ email: req.body.email }, {$set: {weightGoal: req.body.weightGoal}}, function(err, res) {
-    console.log(err);
-  });
-    User.updateOne({ email: req.body.email }, {$set: {veg: req.body.veg}}, function(err, res) {
-    console.log(err);
-  });
-    User.updateOne({ email: req.body.email }, {$set: {vegan: req.body.vegan}}, function(err, res) {
-    console.log(err);
-  });
-    User.updateOne({ email: req.body.email }, {$set: {condition: req.body.condition}}, function(err, res) {
-    console.log(err);
-  });
+    User.updateOne({ email: req.body.email }, { $set: { weight: req.body.weight } }, function (err, res) {
+      console.log(err);
+    });
+    User.updateOne({ email: req.body.email }, { $set: { height: req.body.height } }, function (err, res) {
+      console.log(err);
+    });
+    User.updateOne({ email: req.body.email }, { $set: { stepGoal: req.body.stepGoal } }, function (err, res) {
+      console.log(err);
+    });
+    User.updateOne({ email: req.body.email }, { $set: { calGoal: req.body.calGoal } }, function (err, res) {
+      console.log(err);
+    });
+    User.updateOne({ email: req.body.email }, { $set: { weightGoal: req.body.weightGoal } }, function (err, res) {
+      console.log(err);
+    });
+    User.updateOne({ email: req.body.email }, { $set: { veg: req.body.veg } }, function (err, res) {
+      console.log(err);
+    });
+    User.updateOne({ email: req.body.email }, { $set: { vegan: req.body.vegan } }, function (err, res) {
+      console.log(err);
+    });
+    User.updateOne({ email: req.body.email }, { $set: { condition: req.body.condition } }, function (err, res) {
+      console.log(err);
+    });
     res.send({
       message: "success",
       success: true,
@@ -144,35 +144,35 @@ router.post("/goals", async (req, res) => {
 });
 
 router.post('/find', async (req, res) => {
-    try {
-        const user = await User.findById(req.body.userid);
-        res.status(200).json(user);
-    } catch (error) {
-        res.status(500).json({ message: 'Error searching user' });
-    }
+  try {
+    const user = await User.findById(req.body.userid);
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: 'Error searching user' });
+  }
 });
 router.post('/buy', async (req, res) => {
-    try {
-        const user = await User.findById(req.body.userid);
-        const points = Number(req.body.points);
-        console.log(user, points)
-        if (Number(user.points)>=points){
-          user.points-=points
-          user.save()
-          res.status(200).json({
-            status:'Purchase Successful. Please check your email.',
-            data:true
-          })
-        } else {
-          res.status(200).json({
-            status:'Not Enough Credits',
-            data:false
-          })
-        }
-      
-    } catch (error) {
-        res.status(500).json({ message: 'Error searching user' });
+  try {
+    const user = await User.findById(req.body.userid);
+    const points = Number(req.body.points);
+    console.log(user, points)
+    if (Number(user.points) >= points) {
+      user.points -= points
+      user.save()
+      res.status(200).json({
+        status: 'Purchase Successful. Please check your email.',
+        data: true
+      })
+    } else {
+      res.status(200).json({
+        status: 'Not Enough Credits',
+        data: false
+      })
     }
+
+  } catch (error) {
+    res.status(500).json({ message: 'Error searching user' });
+  }
 });
-  
+
 module.exports = router;

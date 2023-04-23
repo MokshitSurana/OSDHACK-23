@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 
 const competitionSchema = new mongoose.Schema({
-    _id: {
-        type: String,
-    },
-    email: {
-        type: String,
-    }
+  _id: {
+    type: String,
+  },
+  email: {
+    type: String,
+  }
 });
 
 const userSchema = new mongoose.Schema(
@@ -64,11 +64,11 @@ const userSchema = new mongoose.Schema(
       default: 0,
     },
     friend: {
-    type: Array,
-    default: [],
+      type: Array,
+      default: [],
     },
-      competition: [competitionSchema]
-    },
+    competition: [competitionSchema]
+  },
   {
     timestamps: true,
   }
