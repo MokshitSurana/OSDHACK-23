@@ -1,12 +1,12 @@
 class MessageParser {
-  constructor(actionProvider, state) {
-    this.actionProvider = actionProvider;
-    this.state = state;
-  }
+    constructor(actionProvider, state) {
+        this.actionProvider = actionProvider;
+        this.state = state;
+    }
 
-  parse(message) {
-    this.actionProvider.ResponseHandler(message)
-  }
+    parse(message) {
+        this.actionProvider.ResponseHandler(message);
+    }
 }
 
 /*const MessageParser = (message) => {
